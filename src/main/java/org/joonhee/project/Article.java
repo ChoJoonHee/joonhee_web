@@ -4,7 +4,7 @@ public class Article {
 	String articleId;
 	String title = "";
 	String content = "";
-	int userId = 2014041065;
+	String userId = "2014041065";
 	String name = "joonhee";
 	String cdate;
 	String udate;
@@ -30,10 +30,10 @@ public class Article {
 	}
 
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getName() {

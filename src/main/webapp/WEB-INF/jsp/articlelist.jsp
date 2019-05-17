@@ -11,7 +11,7 @@
 		<input type="number" name="page" value="${param.page }" placeholder="페이지"
 			min="1" max="${totalCount / 100 + 1 }" step="1" style="width: 50px;">
 		<button type="submit">조회</button>
-		<button type="button" value="글 등록"  onclick="location.href='/board/app/register.jsp' ">글 등록</button>
+		<button type="button" value="글 등록"  onclick="location.href='./app/register.jsp' ">글 등록</button>
 	</form> 
 	<table>
 		<thead>

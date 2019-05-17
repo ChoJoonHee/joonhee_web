@@ -2,9 +2,11 @@ package org.joonhee.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.joonhee.book.chap11.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -27,16 +29,25 @@ public class ArticleController {
 	static final Logger logger = LogManager.getLogger();
 	
 	@RequestMapping("/register")
-	public String registerForm() {
-		
+	public String registerForm(HttpSession session) {
+		Object memberObj = session.getAttribute("MEMBER");
+		if(memberObj == null)
+			return "redirect:/app/loginForm";
+		else
 		return "register";
 	}
 	
 	@PostMapping("/articlelist")
-	public String registerComplete(Article article, 
+	public String registerComplete(HttpSession session, Article article, 
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			Model model){
+		Object memberObj = session.getAttribute("MEMBER");
+		if(memberObj == null)
+			return "redirect:/app/loginForm";
 		
+		Member member = (Member) memberObj;
+		article.setUserId(member.getMemberId());
+		article.setName(member.getName());
 		articleDao.insert(article);
 		// 페이지 당 가져오는 행의 수
 				final int COUNT = 100;

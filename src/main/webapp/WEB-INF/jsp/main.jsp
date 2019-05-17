@@ -32,7 +32,7 @@
 		<a href="./app/members">[회원 목록]</a>
 	</p>
 	<p>
-		<a href="./app/article/list">[게시판]</a>
+		<a href="./app/articlelist">[게시판]</a>
 	</p>
 </body>
 </head>
