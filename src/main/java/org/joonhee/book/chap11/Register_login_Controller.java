@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Jacob
  */
 @Controller
-public class RegisterController {
+public class Register_login_Controller {
 
 	@Autowired
 	MemberDao memberDao;
