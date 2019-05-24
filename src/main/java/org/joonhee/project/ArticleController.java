@@ -29,7 +29,8 @@ public class ArticleController {
 	static final Logger logger = LogManager.getLogger();
 	
 	@RequestMapping("/register")
-	public String registerForm(HttpSession session) {
+	public String addForm(HttpSession session)
+	{
 		Object memberObj = session.getAttribute("MEMBER");
 		if(memberObj == null)
 			return "redirect:/app/loginForm";

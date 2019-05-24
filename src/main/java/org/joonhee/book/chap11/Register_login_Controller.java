@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joonhee.project.Article;
+import org.joonhee.project.ArticleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,6 +28,7 @@ public class Register_login_Controller {
 
 	@Autowired
 	MemberDao memberDao;
+
 
 	static final Logger logger = LogManager.getLogger();
 
@@ -102,22 +105,29 @@ public class Register_login_Controller {
 		return "login/loginForm";
 	}
 
+	
 	/**
 	 * 로그인을 실행
 	 */
 	@PostMapping("/login")
 	public String submit(@RequestParam("email") String email,
-			@RequestParam("password") String password, HttpSession session) {
+			@RequestParam("password") String password, HttpSession session ,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			Model model) {
 		try {
 			Member member = memberDao.selectByLogin(email, password);
 			session.setAttribute("MEMBER", member);
 			logger.debug("로그인 성공. {}", member);
+			final int COUNT = 100;
 			return "login/loginSuccess";
 		} catch (EmptyResultDataAccessException e) {
 			logger.debug("로그인 실패. email={}", email);
 			return "redirect:/app/loginForm?mode=FAILURE&email=" + email;
 		}
 	}
+	
+
+	
 
 	/**
 	 * p.362 [리스트 13.3] LogoutController의 logout() 메서드 로그 아웃
