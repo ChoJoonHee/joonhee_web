@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -28,25 +29,13 @@ public class ArticleController {
 
 	static final Logger logger = LogManager.getLogger();
 	
-	@RequestMapping("/register")
-	public String addForm(HttpSession session)
-	{
-		Object memberObj = session.getAttribute("MEMBER");
-		if(memberObj == null)
-			return "redirect:/app/loginForm";
-		else
-		return "register";
-	}
+
 	
 	@PostMapping("/articlelist")
 	public String registerComplete(HttpSession session, Article article, 
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			Model model){
-		Object memberObj = session.getAttribute("MEMBER");
-		if(memberObj == null)
-			return "redirect:/app/loginForm";
+			Model model, @SessionAttribute("MEMBER") Member member){
 		
-		Member member = (Member) memberObj;
 		article.setUserId(member.getMemberId());
 		article.setName(member.getName());
 		articleDao.insert(article);
